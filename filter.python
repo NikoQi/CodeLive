@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+import pandas as pd
+import numpy as np
+
+number = []
+data_tag = []
+tag_count = []
+
+dict_map = {}
+def fileTag(tag):
+    if(tag in data_tag):
+        return True
+    else:
+        data_tag.append(tag)
+    return False
+
+#file = open('test1.txt','r')
+file = open('main_log_20211207171506.txt','rb')
+for line in file.readlines():
+    #print(line)
+    line_arr = line.decode('utf-8','ignore').split(':')
+    #print(line_arr)
+    target_arr = line_arr[2].split()
+    #print(target_arr[-1])
+    tag_count.append(target_arr[-1])
+    ret = fileTag(target_arr[-1])
+    #print(ret)
+
+dict_map=dict.fromkeys(data_tag, 0)
+
+write_file = open('target.txt','w')
+for tag in data_tag:
+    #print(tag)
+    count = tag_count.count(tag)
+    #print(count)
+    target = tag+" "+str(count)
+    print(target)
+    write_file.write(target)
+    write_file.write('\n')
+    number.append(count)
+    #dict_map.update(tag=count)
+#print(dict_map) 
